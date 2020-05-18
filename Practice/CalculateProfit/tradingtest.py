@@ -1,8 +1,16 @@
-import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
 import time
 import matplotlib.pyplot as plt
+import math
+import pandas_datareader as web
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+import matplotlib.pyplot as plt
+plt.style.use('fivethirtyeight')
 
 api_key = 'RNZPXZ6Q9FEFMEHM'
 
@@ -15,7 +23,7 @@ percentage_change = close_data.pct_change()
 
 periods = 14
 ti = TechIndicators(key=api_key, output_format='pandas')
-data_ti, meta_data_ti = ti.get_rsi(symbol='MSFT', interval='1min',
+data_ti, meta_data_ti = ti.get_rsi(symbol='MSFT', interval='60min',
                             time_period=periods, series_type='close')
 
 df1 = data_ti
